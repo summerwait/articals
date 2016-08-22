@@ -1,0 +1,82 @@
+看到一段关于 SVG 实现拖拽的代码：
+
+<script type="text/ecmascript"> <![CDATA[  
+  var selectedElement = 0;  
+  var currentX = 0;  
+  var currentY = 0;  
+  var currentMatrix = 0;  
+
+  function selectElement(evt) {  
+    selectedElement = evt.target;  
+    currentX = evt.clientX;  
+    currentY = evt.clientY;  
+    currentMatrix = selectedElement.getAttributeNS(null, "transform").slice(7,-1).split(' ');  
+
+      for(var i=0; i<currentMatrix.length; i++) {  
+        currentMatrix[i] = parseFloat(currentMatrix[i]);  
+      }  
+
+    selectedElement.setAttributeNS(null, "onmousemove", "moveElement(evt)");  
+  }  
+]]> </script>  
+
+请问这里的 type 与平时我们使用的 text/javascript 有什么区别？
+还有，里面为什么要加 <![CDATA[ ]]>？
+
+这段代码能不能直接换成这样？
+
+<script type="text/javascript">
+  var selectedElement = 0;  
+  var currentX = 0;  
+  var currentY = 0;  
+  var currentMatrix = 0;  
+
+  function selectElement(evt) {  
+    selectedElement = evt.target;  
+    currentX = evt.clientX;  
+    currentY = evt.clientY;  
+    currentMatrix = selectedElement.getAttributeNS(null, "transform").slice(7,-1).split(' ');  
+
+      for(var i=0; i<currentMatrix.length; i++) {  
+        currentMatrix[i] = parseFloat(currentMatrix[i]);  
+      }  
+
+    selectedElement.setAttributeNS(null, "onmousemove", "moveElement(evt)");  
+  }  
+</script> 
+
+   
+  
+解答
+
+首先，text/ecmascript和text/javascript这两个媒体类型是等价的，你完全可以省略不写，直接<script></script>。
+
+其次，你可以将你代码中的<![CDATA[ ]]>去掉，一般不会出现问题。
+
+下面，简单的介绍一下为什么要使用<![CDATA[ ]]>。
+
+首先，CDATA这东西是XML中特有的，它里面的内容不会被XML解析器解析，你可以把它理解为元数据。
+
+但是，HTML中怎么会有CDATA了呢？
+
+原因是：在HTML 4.01出来之后，人们又创造出来了一个XHTML，目的是为了语法更严谨，可扩展等等。XHTML的媒体类型是application/xhtml+xml，而HTML的媒体类型为text/html。但实际情况是，绝大多是都是用text/html这个媒体类型。如果媒体类型是application/xhtml+xml的话，当标签中出现>或&等字符（这在JS中很常见）是会导致解析出错。为了兼容，我们就将它放在CDATA中，这样解析器就不会解析他了，但是，这样在HTML中就会出错了，于是便有了下面的写法：
+
+
+
+<script type="text/javascript"> 
+// <![CDATA[
+
+// ]]>
+</script>
+
+
+这也是为了兼容HTML和XHTML。具体解释可以参见参考链接3。好消息是，现在的浏览器大都兼容XHTML和HTML。
+
+感觉XHTML的雄心很大，但是壮志未酬，一统江湖的大任最终落在了HTML5的身上。
+参考
+
+    HTML Versus XHTML
+    HTML and XHTML
+    Why does CDATA is commented out under script tags ?
+    Writing JavaScript for XHTML
+
