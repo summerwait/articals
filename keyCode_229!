@@ -1,0 +1,63 @@
+keyCode229问题-未完待补充
+测试环境：戴尔（DELL）灵越15/lenovo G480
+                   微软输入法-中文状态下
+                    chrome&Opera&ie仿真ie8及以下版本
+
+PS：亲测百度输入法、qq输入法没有此情况出现，另，Firefox、ie9及以上版本 没有出现这种情况
+
+PS：网传有另一种类似情况：中文状态下，所有字母键的keyCode值均为229，
+
+问题描述：按如下代码执行，测试键盘上所有数字键keyCode值，均是229；
+                当快速连续键入两个数字，第二个的keyCode值却能正常正确输出（测试快速键入多个时，后面的也可能连续输出正确结果多个，但无规律可循）
+代码：
+<body>
+    <input type='text' id='input' placeholder='请输入...'/>
+</body>
+<script type='text/javascript' >
+    input.onkeyup = function (e){
+        e = e || window.event;
+        console.log(e.keyCode);
+    }
+</script>
+
+解决方法：
+1、切换成英文输入，可正常正确输出keyCode值
+2、css属性：ime-mode:disabled;  如：<input type='text' id='input' placeholder='请输入...' style='ime-mode:disabled'/>
+        但此方法chrome/Safari/Opera 不支持ime-mode这个css3属性。
+另，在ie9及以上版本浏览器中，没有这种特殊情况出现，无需做处理。
+......
+
+
+
+
+PS：
+ime-mode : auto | active | inactive | disabled
+
+取值：
+
+auto  : 默认值。不影响IME(Input Method Editors 输入法编辑器)的状态。与不指定 ime-mode 属性时相同
+
+active  : 指定所有使用IME输入的字符。即激活本地语言输入法。用户仍可以撤销激活IME
+
+inactive  : 指定所有不使用IME输入的字符。即激活非本地语言。用户仍可以撤销激活IME
+
+disabled  : 完全禁用IME。对于有焦点的控件(如输入框)，用户不可以激活IME
+
+PS：
+ ime是Input Method Editor的简称。它是一种专门的应用程序， 用来输入代表东亚地区书面语言文字的不同字符。
+
+使用此种输入法，不需特殊的键盘（对应各种语言的键盘）即可输入东亚诸国（如中文、日文、韩文、俄文等）的各种文字。
+日本IME，是可以输入表音文字 (かな)与変换表意文字 (汉字) 的 一种输入法，而且它具有人工智慧，可以将一般较常使用的表意语句置于输入法的词库中。日本IME输入法 ，则依据该词库所建立之词汇来判断所输入的表音文字以変换为恰当的表意文字。
+由于日文中发音相同的表意文字相当多的关系，日本IME在使用之初的表意文字的変换判断不甚恰当的情况是会发生的。因此，该输入法提供使用者可以自同音语句一覧，选择出使用者希望的文字。从同音语句一覧所选择出的语句，在该次输入之后则会成为表意文字变换时的第一候补语句。此即日本IME的学习功能。
+Windows系统下汉字输入法实际上是将输入的标准ascii字符串按照一定的编码规则转换为汉字或汉字串，进入到目的地。由于应用程序各不相同，用户不可能自己去设计转换程序，因此，汉字输入自然而然落到WINDOWS系统管理中。IME文件它是输入法的后缀名，直接可以用的，WINABC.IME是智能ABC输入法，PINTLGNT.IME是微软拼音输入法，WINGB.IME是内码输入法，WINPY.IME是全拼输入法，WINSP.IME是双拼输入法，WINZM.IME是郑码输入法。 
+
+
+ 
+ 
+
+参考网站：
+http://www.w3chtml.com/css3/properties/user-interface/ime-mode.html
+http://www.cnblogs.com/snandy/archive/2011/03/28/1997407.html ;
+http://www.t086.com/article/4315 ;  keyCode对照表
+感谢马宾同学发现问题并分享出来哈 
+本文仅作学习交流用，如有不足，欢迎大家补充指正 
