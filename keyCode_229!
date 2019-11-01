@@ -3,12 +3,12 @@ keyCode229问题-未完待补充
                    微软输入法-中文状态下
                     chrome&Opera&ie仿真ie8及以下版本
 
-PS：亲测百度输入法、qq输入法没有此情况出现，另，Firefox、ie9及以上版本 没有出现这种情况
-
-PS：网传有另一种类似情况：中文状态下，所有字母键的keyCode值均为229，
-
 问题描述：按如下代码执行，测试键盘上所有数字键keyCode值，均是229；
-                当快速连续键入两个数字，第二个的keyCode值却能正常正确输出（测试快速键入多个时，后面的也可能连续输出正确结果多个，但无规律可循）
+当快速连续键入两个数字，第二个的keyCode值却能正常正确输出（测试快速键入多个时，后面的也可能连续输出正确结果多个，但无规律可循）
+
+PS：亲测百度输入法、qq输入法没有此情况出现，另，Firefox、ie9及以上版本 没有出现这种情况
+PS：网传有另一种类似情况：中文状态下，所有字母键的keyCode值均为229
+
 代码：
 <body>
     <input type='text' id='input' placeholder='请输入...'/>
@@ -57,7 +57,7 @@ Windows系统下汉字输入法实际上是将输入的标准ascii字符串按�
 
 参考网站：
 http://www.w3chtml.com/css3/properties/user-interface/ime-mode.html
-http://www.cnblogs.com/snandy/archive/2011/03/28/1997407.html ;
-http://www.t086.com/article/4315 ;  keyCode对照表
-感谢马宾同学发现问题并分享出来哈 
+http://www.cnblogs.com/snandy/archive/2011/03/28/1997407.html 
+http://www.t086.com/article/4315  keyCode对照表
+
 本文仅作学习交流用，如有不足，欢迎大家补充指正 
